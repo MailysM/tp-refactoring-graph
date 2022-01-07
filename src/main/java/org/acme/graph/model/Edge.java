@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+
 /**
  *
  * Un arc matérialisé par un sommet source et un sommet cible
@@ -33,6 +34,11 @@ public class Edge {
 	 */
 	private Vertex target;
 
+	/**
+	 * Geometry des tronçons
+	 */
+	private LineString geometry;
+
 
 	Edge(Vertex source, Vertex target) {
 		if(source == null || target == null){
@@ -40,6 +46,8 @@ public class Edge {
 		} else{
 			this.source = source;
 			this.target = target;
+
+			//Calcul Geometry
 		}
 	}
 
@@ -87,16 +95,19 @@ public class Edge {
 	 * @return
 	 */
 	public double getCost() {
-		return source.getCoordinate().distance(target.getCoordinate());
+		return geometry.getLength();
 	}
 
-	@JsonSerialize(using = GeometrySerializer.class)
+	public void setGeometry(LineString geometry){
+		this.geometry = geometry;
+	}
+
+	
 	public LineString getGeometry() {
-		GeometryFactory gf = new GeometryFactory();
-		return gf.createLineString(new Coordinate[] {
-			source.getCoordinate(),
-			target.getCoordinate()
-		});
+		if(this.geometry == null){
+			throw new NullPointerException("Geometry not defined");
+		}
+		return this.geometry;
 	}
 
 	@Override

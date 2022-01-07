@@ -130,7 +130,12 @@ public class Graph {
 		return result;
 	}
 
-
+	/**
+	 * 
+	 * @param coordinate
+	 * @param id
+	 * @return
+	 */
 	public Vertex createVertex(Coordinate coordinate, String id){
 		Vertex vertex = new Vertex();
 		vertex.setId(id);
@@ -139,6 +144,13 @@ public class Graph {
 		return vertex;
 	}
 
+	/**
+	 * 
+	 * @param source
+	 * @param target
+	 * @param id
+	 * @return 
+	 */
 	public Edge createEdge(Vertex source, Vertex target, String id){
 		Edge edge = new Edge(source, target);
 		edge.setId(id);
