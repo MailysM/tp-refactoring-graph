@@ -36,6 +36,7 @@ public class PathTree {
 			this.nodes.put(vertex, pathNode);
 		}
     }
+    
 
     /**
 	 * Construit le chemin en remontant les relations incoming edge
