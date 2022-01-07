@@ -90,15 +90,15 @@ public class GraphReader {
 
 		/* Création de l'arc pour le parcours en sens direct */
 		if (sens.equals(DOUBLE_SENS) || sens.equals(SENS_DIRECT)) {
-			graph.createEdge(source, target, id + "-direct").setGeometry(geometry);;
+			graph.createEdge(source, target, id + "-direct").setGeometry(geometry);
 		}
-		if (sens.equals(DOUBLE_SENS) || sens.equals(SENS_INVERSE)) 
+		if (sens.equals(DOUBLE_SENS) || sens.equals(SENS_INVERSE)) {
 			/* Création de l'arc pour le parcours en sens opposé */
-			graph.createEdge(target, source, id + "-reverse").setGeometry(geometry);;
+			graph.createEdge(target, source, id + "-reverse").setGeometry(geometry);
 		}
 	}
 
-	
+
 	/**
 	 * Récupération de la géométrie de l'arc à partir de la feature
 	 * 

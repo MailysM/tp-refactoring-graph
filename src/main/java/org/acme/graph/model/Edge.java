@@ -95,17 +95,21 @@ public class Edge {
 	 * @return
 	 */
 	public double getCost() {
-		return geometry.getLength();
+		return this.getGeometry().getLength();
 	}
 
 	public void setGeometry(LineString geometry){
 		this.geometry = geometry;
 	}
 
-	
+	@JsonSerialize(using = GeometrySerializer.class)
 	public LineString getGeometry() {
 		if(this.geometry == null){
-			throw new NullPointerException("Geometry not defined");
+			GeometryFactory gf = new GeometryFactory();
+			return gf.createLineString(new Coordinate[] {
+				source.getCoordinate(),
+				target.getCoordinate()
+			});
 		}
 		return this.geometry;
 	}
