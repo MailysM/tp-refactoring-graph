@@ -147,4 +147,8 @@ public class Graph {
 		this.edges = edges;
 	}
 
+	public Vertex createVertex(Coordinate coordinate, String id){
+		
+	}
+
 }
