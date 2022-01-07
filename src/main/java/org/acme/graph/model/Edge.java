@@ -40,15 +40,23 @@ public class Edge {
 	private LineString geometry;
 
 
+
 	Edge(Vertex source, Vertex target) {
 		if(source == null || target == null){
 			throw new RuntimeException("Source or Target Vector is null");
 		} else{
 			this.source = source;
 			this.target = target;
-
-			//Calcul Geometry
 		}
+		//Calcul Geometry
+		GeometryFactory gf = new GeometryFactory();
+		this.geometry =  gf.createLineString(new Coordinate[] {
+			source.getCoordinate(),
+			target.getCoordinate()
+		});
+		//Initialisation inEdges et outEdges
+		source.getOutEdges().add(this);
+		target.getInEdges().add(this);
 	}
 
 	public String getId() {
@@ -70,9 +78,6 @@ public class Edge {
 		return source;
 	}
 
-	public void setSource(Vertex source) {
-		this.source = source;
-	}
 
 	/**
 	 * Cible avec rendu JSON sous forme d'identifiant
@@ -83,10 +88,6 @@ public class Edge {
 	@JsonIdentityReference(alwaysAsId = true)
 	public Vertex getTarget() {
 		return target;
-	}
-
-	public void setTarget(Vertex target) {
-		this.target = target;
 	}
 
 	/**
@@ -104,13 +105,6 @@ public class Edge {
 
 	@JsonSerialize(using = GeometrySerializer.class)
 	public LineString getGeometry() {
-		if(this.geometry == null){
-			GeometryFactory gf = new GeometryFactory();
-			return gf.createLineString(new Coordinate[] {
-				source.getCoordinate(),
-				target.getCoordinate()
-			});
-		}
 		return this.geometry;
 	}
 
